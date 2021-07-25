@@ -2,34 +2,34 @@
 
 namespace offsets
 {
-	ptrdiff_t dw_clientstate = 0x58BCFC;
-	ptrdiff_t dw_entitylist = 0x4CE34DC;
-	ptrdiff_t dw_globalvars = 0x58BA00;
-	ptrdiff_t dw_sendpacket = 0xD259A;
-	ptrdiff_t dw_last_outgoing_command = 0x4D24;
-	ptrdiff_t dw_input = 0x512E4F0;
+	ptrdiff_t dwClientState = 0x588FEC;
+	ptrdiff_t dwEntityList = 0x4DA31EC;
+	ptrdiff_t dwGlobalVars = 0x588CF0;
+	ptrdiff_t dwbSendPackets = 0xD771A;
+	ptrdiff_t clientstate_last_outgoing_command = 0x4D2C;
+	ptrdiff_t dwInput = 0x51F47B0;
 }
 
 namespace netvars
 {
-	ptrdiff_t i_sigonstate = 0x108;
-	ptrdiff_t i_local = 0x180;
-	ptrdiff_t i_health = 0x100;
-	ptrdiff_t i_team = 0xF4;
-	ptrdiff_t i_tickbase = 0x342C;
+	ptrdiff_t dwClientState_State = 0x108;
+	ptrdiff_t m_Local = 0x2FBC;
+	ptrdiff_t m_iHealth = 0x100;
+	ptrdiff_t m_iTeamNum = 0xF4;
+	ptrdiff_t m_nTickBase = 0x3430;
 
-	ptrdiff_t b_dormant = 0xED;
+	ptrdiff_t m_bDormant = 0xED;
 
-	ptrdiff_t f_simulation_time = 0x268;
-	ptrdiff_t f_next_primary_attack = 0x3218;
+	ptrdiff_t m_flSimulationTime = 0x268;
+	ptrdiff_t m_flNextPrimaryAttack = 0x3238;
 
-	ptrdiff_t dw_bonematrix = 0x26A8;
-	ptrdiff_t dw_active_weapon = 0x2EF8;
-	ptrdiff_t dw_netchannel = 0x9C;
+	ptrdiff_t m_dwBoneMatrix = 0x26A8;
+	ptrdiff_t m_hActiveWeapon = 0x2EF8;
+	ptrdiff_t clientstate_net_channel = 0x9C;
 	ptrdiff_t dw_next_cmd = 0x110;
 
-	ptrdiff_t vec_aim_punch_angles = 0x302C;
-	ptrdiff_t vec_origin = 0x138;
-	ptrdiff_t vec_view_offset = 0x108;
-	ptrdiff_t vec_view_angles = 0x4D88;
+	ptrdiff_t m_aimPunchAngle = 0x302C;
+	ptrdiff_t m_vecOrigin = 0x138;
+	ptrdiff_t m_vecViewOffset = 0x108;
+	ptrdiff_t dwClientState_ViewAngles = 0x4D90;
 }

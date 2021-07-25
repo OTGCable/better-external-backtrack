@@ -10,23 +10,23 @@ class c_backtrack
 public:
 	static bool is_ingame()
 	{
-		return ( g_ptr_memory->read_memory<int>( offsets::dw_clientstate + netvars::i_sigonstate ) == 6 );
+		return ( g_ptr_memory->read_memory<int>( offsets::dwClientState + netvars::dwClientState_State ) == 6 );
 	}
 	static void send_packet( const bool status )
 	{
 		const BYTE val = status ? 1 : 0;
-		g_ptr_memory->write_memory_protected<BYTE>( engine_module->get_image_base() + offsets::dw_sendpacket, val );
+		g_ptr_memory->write_memory_protected<BYTE>( engine_module->get_image_base() + offsets::dwbSendPackets, val );
 	}
 	static int local_player_index()
 	{
-		return g_ptr_memory->read_memory<int>( offsets::dw_clientstate + netvars::i_local );
+		return g_ptr_memory->read_memory<int>( offsets::dwClientState + netvars::m_Local );
 	}
 	void set_localplr() {
 		local_ = c_entity(local_player_index());
 	}
 	bool can_shoot() const
 	{
-		const auto next_primary_attack = g_ptr_memory->read_memory< float >( local_.current_weapon_base() + netvars::f_next_primary_attack );
+		const auto next_primary_attack = g_ptr_memory->read_memory< float >( local_.current_weapon_base() + netvars::m_flNextPrimaryAttack );
 		const auto server_time = local_.tickbase() * get_globalvars().interval_per_tick;
 
 		return ( !( next_primary_attack > server_time ) );
@@ -51,11 +51,11 @@ public:
 
 		std::shared_future<float> future_simtime = std::async(std::launch::async, &c_backtrack::best_simtime, this);
 
-		const auto current_sequence_number = g_ptr_memory->read_memory<int>(offsets::dw_clientstate + offsets::dw_last_outgoing_command) + 1;
+		const auto current_sequence_number = g_ptr_memory->read_memory<int>(offsets::dwClientState + offsets::clientstate_last_outgoing_command) + 1;
 
 		send_packet(false);
 
-		const auto input = g_ptr_memory->read_memory<input_t>(client_module->get_image_base() + offsets::dw_input);
+		const auto input = g_ptr_memory->read_memory<input_t>(client_module->get_image_base() + offsets::dwInput);
 
 		const auto ptr_usercmd = input.m_pCommands + (current_sequence_number % 150) * sizeof(usercmd_t);
 		const auto ptr_verified_usercmd = input.m_pVerifiedCommands + (current_sequence_number % 150) * sizeof(verified_usercmd_t);
@@ -152,7 +152,7 @@ public:
 private:
 	static netchannel_t get_netchannel()
 	{
-		return g_ptr_memory->read_memory<netchannel_t>( g_ptr_memory->read_memory<ptrdiff_t>( offsets::dw_clientstate + netvars::dw_netchannel ) );
+		return g_ptr_memory->read_memory<netchannel_t>( g_ptr_memory->read_memory<ptrdiff_t>( offsets::dwClientState + netvars::clientstate_net_channel ) );
 	}
 	bool is_valid_tick( const int tick ) const
 	{
@@ -165,19 +165,19 @@ private:
 	}
 	static double get_nextcmdtime()
 	{
-		return g_ptr_memory->read_memory<double>( offsets::dw_clientstate + netvars::dw_next_cmd );
+		return g_ptr_memory->read_memory<double>( offsets::dwClientState + netvars::dw_next_cmd );
 	}
 	static globalvars_t get_globalvars()
 	{
-		return g_ptr_memory->read_memory<globalvars_t>( engine_module->get_image_base() + offsets::dw_globalvars );
+		return g_ptr_memory->read_memory<globalvars_t>( engine_module->get_image_base() + offsets::dwGlobalVars );
 	}
 	static void set_tick_count( const int tick )
 	{
-		g_ptr_memory->write_memory<int>( engine_module->get_image_base() + offsets::dw_globalvars + 0x1C, tick );
+		g_ptr_memory->write_memory<int>( engine_module->get_image_base() + offsets::dwGlobalVars + 0x1C, tick );
 	}
 	static Vector get_viewangles()
 	{
-		return g_ptr_memory->read_memory<Vector>( offsets::dw_clientstate + netvars::vec_view_angles );
+		return g_ptr_memory->read_memory<Vector>( offsets::dwClientState + netvars::dwClientState_ViewAngles );
 	}
 	static int time_to_ticks( float time )
 	{
@@ -261,7 +261,7 @@ private:
 
 	backtrack_data_t backtrack_positions_[ 64 ][ 12 ] = { 0.0f, Vector(0.0f, 0.0f, 0.0f) };
 	int best_target_ = -1;
-	int max_backtrack_ms_ = 200;
+	int max_backtrack_ms_ = 75;
 	c_entity local_ = c_entity(-1);
 };
 

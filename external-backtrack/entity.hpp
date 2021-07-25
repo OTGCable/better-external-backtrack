@@ -14,7 +14,7 @@ public:
 
 			if (base == NULL) {
 				baseaddress_ = g_ptr_memory->read_memory<ptrdiff_t>(
-					client_module->get_image_base() + offsets::dw_entitylist + (i * 0x10));
+					client_module->get_image_base() + offsets::dwEntityList + (i * 0x10));
 				index_ = i;
 			}
 			else {
@@ -25,24 +25,24 @@ public:
 	}
 	int health() const
 	{
-		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::i_health );
+		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::m_iHealth );
 	}
 	bool dormant() const 
 	{
-		return g_ptr_memory->read_memory<bool>( baseaddress_ + netvars::b_dormant );
+		return g_ptr_memory->read_memory<bool>( baseaddress_ + netvars::m_bDormant );
 	}
 	int team() const 
 	{
-		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::i_team );
+		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::m_iTeamNum );
 	}
 	float simulation_time() const 
 	{
-		return g_ptr_memory->read_memory<float>( baseaddress_ + netvars::f_simulation_time );
+		return g_ptr_memory->read_memory<float>( baseaddress_ + netvars::m_flSimulationTime );
 	}
 	Vector bone_position( const int bone ) const
 	{
 		Vector out;
-		const auto temp = g_ptr_memory->read_memory<ptrdiff_t>( baseaddress_ + netvars::dw_bonematrix );
+		const auto temp = g_ptr_memory->read_memory<ptrdiff_t>( baseaddress_ + netvars::m_dwBoneMatrix );
 		out.x = g_ptr_memory->read_memory<float>( temp + 0x30 * bone + 0xC );
 		out.y = g_ptr_memory->read_memory<float>( temp + 0x30 * bone + 0x1C );
 		out.z = g_ptr_memory->read_memory<float>( temp + 0x30 * bone + 0x2C );
@@ -51,27 +51,27 @@ public:
 	}
 	Vector punch_angles() const
 	{
-		return g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::vec_aim_punch_angles );
+		return g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::m_aimPunchAngle );
 	}
 	Vector origin() const
 	{
-		return g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::vec_origin );
+		return g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::m_vecOrigin );
 	}
 	Vector eye_postition() const
 	{
-		Vector eye = g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::vec_view_offset );
+		Vector eye = g_ptr_memory->read_memory<Vector>( baseaddress_ + netvars::m_vecViewOffset );
 		eye += origin();
 
 		return eye;
 	}
 	int tickbase() const
 	{
-		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::i_tickbase );
+		return g_ptr_memory->read_memory<int>( baseaddress_ + netvars::m_nTickBase );
 	}
 	ptrdiff_t current_weapon_base() const
 	{
-		const auto active_weapon = g_ptr_memory->read_memory<ptrdiff_t>( baseaddress_ + netvars::dw_active_weapon );
-		return g_ptr_memory->read_memory<ptrdiff_t>( client_module->get_image_base() + offsets::dw_entitylist + ( ( active_weapon & 0xFFF ) - 1 ) * 0x10 );
+		const auto active_weapon = g_ptr_memory->read_memory<ptrdiff_t>( baseaddress_ + netvars::m_hActiveWeapon );
+		return g_ptr_memory->read_memory<ptrdiff_t>( client_module->get_image_base() + offsets::dwEntityList + ( ( active_weapon & 0xFFF ) - 1 ) * 0x10 );
 	}
 private:
 	ptrdiff_t baseaddress_;

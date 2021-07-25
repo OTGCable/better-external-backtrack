@@ -101,7 +101,7 @@ int main() {
 
 	while (!engine_module || !client_module) {
 		engine_module = g_ptr_memory->get_module("engine.dll");
-		client_module = g_ptr_memory->get_module("client_panorama.dll");
+		client_module = g_ptr_memory->get_module("client.dll");
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
@@ -115,7 +115,7 @@ int main() {
 		return -1;
 	}
 
-	offsets::dw_clientstate = g_ptr_memory->read_memory<ptrdiff_t>(engine_module->get_image_base() + offsets::dw_clientstate);
+	offsets::dwClientState = g_ptr_memory->read_memory<ptrdiff_t>(engine_module->get_image_base() + offsets::dwClientState);
 
 	std::thread t1(backtrack);
 	std::thread t2(update_data);
