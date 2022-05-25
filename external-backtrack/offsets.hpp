@@ -2,12 +2,12 @@
 
 namespace offsets
 {
-	ptrdiff_t dwClientState = 0x589FC4;
-	ptrdiff_t dwEntityList = 0x4DD0AB4;
-	ptrdiff_t dwGlobalVars = 0x589CC8;
-	ptrdiff_t dwbSendPackets = 0xD9372;
+	ptrdiff_t dwClientState = 0x58BFDC;
+	ptrdiff_t dwEntityList = 0x4DD69DC;
+	ptrdiff_t dwGlobalVars = 0x58BCE0;
+	ptrdiff_t dwbSendPackets = 0xD81A2;
 	ptrdiff_t clientstate_last_outgoing_command = 0x4D2C;
-	ptrdiff_t dwInput = 0x5222088;
+	ptrdiff_t dwInput = 0x5227FB0;
 }
 
 namespace netvars
